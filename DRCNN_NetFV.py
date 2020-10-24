@@ -33,9 +33,9 @@ class CGFA_CNN_NetFV(BasicModule):
         # features extract from DRCNN pretrained on self-built dataset
         #
         y1 = self.base_model_syn.conv_features[0:9](x)
-        y2 = self.base_model_syn.conv_features[9:15](x)
-        y3 = self.base_model_syn.conv_features[15:21](x)
-        y4 = self.base_model_syn.conv_features[21:27](x)
+        y2 = self.base_model_syn.conv_features[9:15](y1)
+        y3 = self.base_model_syn.conv_features[15:21](y2)
+        y4 = self.base_model_syn.conv_features[21:27](y3)
         y1 = y1.permute(2, 3, 0, 1)
         np.random.shuffle(y1)
         y1 = y1.permute(1, 0, 2, 3)
@@ -58,9 +58,9 @@ class CGFA_CNN_NetFV(BasicModule):
         y3 = y3[0:y3.size(0), 0:y3.size(1), 0:y4.size(2), 0:y4.size(3)]
 
         x1 = self.base_model_aut.features[0:4](x)
-        x2 = self.base_model_aut.features[4:9](x)
-        x3 = self.base_model_aut.features[9:16](x)
-        x4 = self.base_model_aut.features[16:23](x)
+        x2 = self.base_model_aut.features[4:9](x1)
+        x3 = self.base_model_aut.features[9:16](x2)
+        x4 = self.base_model_aut.features[16:23](x3)
 
         x1 = x1.permute(2, 3, 0, 1)
         np.random.shuffle(x1)
